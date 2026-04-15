@@ -1,4 +1,4 @@
-def print_report(strength_result, policy_result):
+def print_report(strength_result, policy_result, leaks):
     print("\n===== PASSWORD ANALYSIS REPORT =====")
     print(f"Strength Score: {strength_result['score']} / 4")
     print(f"Estimated Guesses: {strength_result['guesses']}")
@@ -12,6 +12,13 @@ def print_report(strength_result, policy_result):
         status = "PASS" if passed else "FAIL"
         print(f"- {check}: {status}")
 
+    print("\nData Breach Check:")
+    if int(leaks) > 0:
+        print(f"❌ CAUTION: This password was seen in {leaks} data leaks!")
+        print("Suggestion: Change this password immediately on all accounts.")
+    else:
+        print("✅ Safe! This password has not been found in known breaches.")
+
     feedback = strength_result.get("feedback", {})
     warning = feedback.get("warning")
     suggestions = feedback.get("suggestions", [])
@@ -23,4 +30,3 @@ def print_report(strength_result, policy_result):
         for suggestion in suggestions:
             print(f"- Suggestion: {suggestion}")
 
-            
