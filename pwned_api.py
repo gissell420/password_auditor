@@ -8,6 +8,7 @@ def check_pwned_api(password):
     url = f'https://api.pwnedpasswords.com/range/{first5}'
     response = requests.get(url)
 
+    # Check if the request was successful hence (200)
     if response.status_code == 200:
         hashes = (line.split(':') for line in response.text.splitlines())
         for h, count in hashes:
